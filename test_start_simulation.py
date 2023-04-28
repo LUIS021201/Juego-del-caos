@@ -3,7 +3,7 @@
 from juego_del_caos import *
 from tkinter import Canvas
 import random
-
+import subprocess
 import time
 
 
@@ -41,7 +41,8 @@ Additional aspects:
 
 
 class TestStartSimulation:
-
+    
+    
     # Tests that clicking on the canvas adds a point to all_points. 
     def test_click_adds_point(self):
         start_simulation()

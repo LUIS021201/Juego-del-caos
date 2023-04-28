@@ -4,8 +4,13 @@ import time
 
 
 
-def main():
-
+def create_gui():
+    global punto_a, punto_b, punto_c, canvas, root
+    root = tk.Tk()
+    canvas = tk.Canvas(root, width=600, height=550)
+    punto_a = (300, 100)
+    punto_b = (150, 400)
+    punto_c = (450, 400)
     root.geometry("600x600")
     root.title("Juego del caos")
     label_font = ("Arial", 16)
@@ -14,25 +19,28 @@ def main():
                     font=label_font)
     message.pack(side="top")
     canvas.pack()
-
-    # Draw a horizontal line from (50, 100) to (150, 100)
-    # canvas.create_line(50, 100, 150, 100)
-
     canvas.create_oval(punto_a[0] - 2, punto_a[1] - 2, punto_a[0] + 2, punto_a[1] + 2, fill='black')
     canvas.create_oval(punto_b[0] - 2, punto_b[1] - 2, punto_b[0] + 2, punto_b[1] + 2, fill='black')
     canvas.create_oval(punto_c[0] - 2, punto_c[1] - 2, punto_c[0] + 2, punto_c[1] + 2, fill='black')
-
-
-
     canvas.bind('<Button-1>', draw_point_clicked)
     button = tk.Button(canvas, text="Comenzar simulación", command=start_simulation)
     canvas.create_window(200, 500, window=button)
-
     button = tk.Button(canvas, text="Limpiar puntos", command=clean_points)
     canvas.create_window(350, 500, window=button)
+    
 
+def main():
+    create_gui()
+    global point, ubi_punto, in_process, all_points, canvas, root
+    point = None
+    ubi_punto = None
+    in_process = False
+    all_points = []
     root.mainloop()
 
+
+
+    
 
 def is_point_in_triangle(p, a, b, c):
     # Calculate the vectors representing the three sides of the triangle
@@ -58,7 +66,8 @@ def is_point_in_triangle(p, a, b, c):
 
 def start_simulation():
     global all_points, in_process, ubi_punto, point, punto_a, punto_b, punto_c
-    if point != None and not in_process:
+    
+    if  point != None and not in_process:
         all_points.append(point)
         puntos = [punto_a, punto_b, punto_c]
         start_time = time.time()
@@ -112,20 +121,6 @@ def clean_points():
 
 
 if __name__ == "__main__":
-    root = tk.Tk()
-
-    canvas = tk.Canvas(root, width=600, height=550)
-
-    punto_a = (300, 100)
-
-    punto_b = (150, 400)
-
-    punto_c = (450, 400)
-
-    point = None
-    ubi_punto = None
-    in_process = False
-    all_points = []
     main()
 
 
