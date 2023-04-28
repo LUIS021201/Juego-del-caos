@@ -4,6 +4,16 @@ import time
 
 
 
+point = None
+ubi_punto = None
+in_process = False
+all_points = []
+root = None
+canvas = None
+punto_a = None
+punto_b = None
+punto_c = None
+
 def create_gui():
     global punto_a, punto_b, punto_c, canvas, root
     root = tk.Tk()
@@ -32,10 +42,7 @@ def create_gui():
 def main():
     create_gui()
     global point, ubi_punto, in_process, all_points, canvas, root
-    point = None
-    ubi_punto = None
-    in_process = False
-    all_points = []
+    
     root.mainloop()
 
 
@@ -96,10 +103,13 @@ def get_middle_point(p1, p2):
     return ((p1[0] + (p2[0] - p1[0]) / 2), (p2[1] + (p1[1] - p2[1]) / 2))
 
 
+POINT_SIZE = 2
+
+
 def draw_point(x, y):
     global ubi_punto
     ubi_punto = (x, y)
-    return canvas.create_oval(x - 2, y - 2, x + 2, y + 2, fill='black')
+    return canvas.create_oval(x - POINT_SIZE, y - POINT_SIZE, x + POINT_SIZE, y + POINT_SIZE, fill='black')
 
 
 def draw_point_clicked(event):
